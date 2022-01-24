@@ -32,6 +32,7 @@ public class World {
 
     //check the intersection
     public void intersections() {
+
     }
 
 
