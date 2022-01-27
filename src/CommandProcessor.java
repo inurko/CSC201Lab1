@@ -66,19 +66,24 @@ public class CommandProcessor {
        }
 
         for (String e : args){
+
             switch(e){
                 case "insert":
                     System.out.println("insert");
                     break;
+
                 case "remove":
                     System.out.println("remove");
                     break;
+
                 case "regionsearch":
                     System.out.println("regionsearch");
                     break;
+
                 case "dump":
                     System.out.println("dump");
                     break;
+
                 case "search":
                     System.out.println("search");
                     break;

@@ -20,35 +20,36 @@ public class World {
 
     //check if the rectangle is inside the range of the World
     public boolean validRegion(Rectangle rect){
-        boolean validRegion = true;
-
-        return validRegion;
+        if(rect.intersects(WORLD_REC))
+        {
+            return false;
+        }
+        return true;
     }
 
     //region search for rectangle
     public void regionSearch(Rectangle region) {
+        if(!validRegion(region)||region.getHeight()==0)
+        {
+            return;
+        }
 
     }
 
     //check the intersection
     public void intersections() {
-
     }
 
 
     //remove by the content of the rectangle
-    public MyRectangle remove(Rectangle rect) {
-        MyRectangle rectRemove = new MyRectangle();
-
-        return rectRemove;
+    public MyRectangle remove(MyRectangle rect) {
+        return tree.remove(rect,tree.getHead());
     }
 
 
     //remove by the name of the rectangle
     public MyRectangle remove(String name) {
-        MyRectangle rectRemove = new MyRectangle();
-
-        return rectRemove;
+        return tree.remove(name, tree.getHead());
     }
 
 }
