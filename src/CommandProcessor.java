@@ -18,7 +18,7 @@ public class CommandProcessor {
      * Instantiates a new command processor
      */
     public CommandProcessor(String fileName) throws FileNotFoundException {
-        //world = new World();
+        World world = new World();
         run(new File(fileName));
     }
 
@@ -60,13 +60,32 @@ public class CommandProcessor {
 
                 if (! input.equals(" ")){
                     args.add(input);
-                    System.out.println(input);
+
                 }
-
-
             }
-
        }
+
+        for (String e : args){
+            switch(e){
+                case "insert":
+                    System.out.println("insert");
+                    break;
+                case "remove":
+                    System.out.println("remove");
+                    break;
+                case "regionsearch":
+                    System.out.println("regionsearch");
+                    break;
+                case "dump":
+                    System.out.println("dump");
+                    break;
+                case "search":
+                    System.out.println("search");
+                    break;
+            }
+        }
+
+
 
     }
 }
