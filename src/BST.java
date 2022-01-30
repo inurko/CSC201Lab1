@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 /**
  * In this class, implement methods for your binary search tree,
@@ -12,24 +14,60 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
     private Node head;
     private int size;
 
+    @Override
+    public Iterator<Node<T>> iterator() {
+        return null;
+    }
+
+    @Override
+    public void forEach(Consumer<? super Node<T>> action) {
+
+    }
+
+    @Override
+    public Spliterator<Node<T>> spliterator() {
+        return null;
+    }
+
 
     private class BSTIterator implements Iterator<Node<T>> {
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public Node<T> next() {
+            return null;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void forEachRemaining(Consumer<? super Node<T>> action) {
+
+        }
     }
-    public void addRec(MyRectangle rectangle,Node node){
-        Node newNode= new Node(rectangle);
+    public static void addRec(MyRectangle rectangle,Node node, String name){
+
+        Node newNode = new Node(rectangle, name);
+
         if (node==null)
         {
-            node=newNode;
+            newNode = node;
         }
         else if(newNode.compareTo(node)==1) {
-            addRec(rectangle,node.getRight());
+            addRec(rectangle,node.getRight(), node.getName());
         }
         else if(newNode.compareTo(node)==-1) {
-            addRec(rectangle,node.getLeft());
+            addRec(rectangle,node.getLeft(), node.getName());
         }
     }
     public void Locate(MyRectangle rectangle,Node node){
-        Node newNode= new Node(rectangle);
+        Node newNode= new Node(rectangle, null);
         if (newNode.compareTo(node)==0)
         {
             node=newNode;
@@ -45,6 +83,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
     }
     public MyRectangle remove(String name, Node node)
     {
+        MyRectangle rectangle = new MyRectangle(null);
         //How to seach and which side should i replace it with
         if(name.equals(node.getName()))
         {
@@ -53,11 +92,11 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
 
         }
 
-
+        return rectangle;
     }
     public MyRectangle remove(MyRectangle rectangle, Node node)
     {
-        Node newNode= new Node(rectangle);
+        Node newNode= new Node(rectangle, null);
         if (newNode.compareTo(node)==0)
         {
             node=newNode;
@@ -69,7 +108,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             Locate(rectangle,node.getLeft());
         }
 
-
+        return rectangle;
     }
 
     public Node getHead() {

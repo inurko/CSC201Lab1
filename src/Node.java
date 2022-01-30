@@ -8,20 +8,28 @@ import java.util.Objects;
  */
 
 public class Node<T extends Comparable<T>> {
-    private Node left,right;
+    private Node left, right;
     private MyRectangle rect;
     private String name;
-    public Node(MyRectangle curr) {
-        rect=curr;
-        left=null;
-        right=null;
+
+    public Node(Node n){
+        rect = n.rect;
+        left = n.left;
+        right = n.right;
+        name = n.name;
     }
-    public Node(MyRectangle curr, Node L, Node R,String Name)
-    {
-        rect=curr;
-        left=L;
-        right=R;
-        this.name=Name;
+    public Node(MyRectangle curr, String name) {
+        rect = curr;
+        left = null;
+        right = null;
+        name = null;
+    }
+
+    public Node(MyRectangle curr, Node L, Node R, String name) {
+        rect = curr;
+        left = L;
+        right = R;
+        this.name = name;
     }
 
     public Node getLeft() {
@@ -36,8 +44,7 @@ public class Node<T extends Comparable<T>> {
         return rect;
     }
 
-    public int compareTo(Node node)
-    {
+    public int compareTo(Node node) {
         return rect.compareTo(node.getRect());
     }
 
@@ -53,11 +60,13 @@ public class Node<T extends Comparable<T>> {
         this.rect = rect;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
-
-    public String getName() {
+    public String getName(){
         return name;
     }
+
 }
+
+

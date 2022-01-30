@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class MyRectangle implements Comparable<MyRectangle> {
     private Rectangle rectangle;
+
     public MyRectangle(Rectangle rectangle){
         this.rectangle=rectangle;
     }
