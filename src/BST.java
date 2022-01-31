@@ -1,111 +1,135 @@
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
+import java.util.Stack;
 
 /**
- * In this class, implement methods for your binary search tree,
- * such as locate nodes, remove nodes, and insert nodes.
- * You should also implement a generic and comparable iterator.
+ * Implement a generic and iterable binary search tree,
+ * and include methods such as locate, remove, and insert nodes.
+ * You should also implement a generic BST iterator.
  */
 
 public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
     private Node head;
     private int size;
-
-    @Override
-    public Iterator<Node<T>> iterator() {
-        return null;
-    }
-
-    @Override
-    public void forEach(Consumer<? super Node<T>> action) {
-
-    }
-
-    @Override
-    public Spliterator<Node<T>> spliterator() {
-        return null;
-    }
-
+    private BSTIterator bstIterator;
 
     private class BSTIterator implements Iterator<Node<T>> {
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public Node<T> next() {
-            return null;
-        }
-
-        @Override
-        public void remove() {
-
-        }
-
-        @Override
-        public void forEachRemaining(Consumer<? super Node<T>> action) {
-
-        }
-    }
-    public static void addRec(MyRectangle rectangle,Node node, String name){
-
-        Node newNode = new Node(rectangle, name);
-
-        if (node==null)
+        private Stack<Node> previousNodes;
+        private Node current;
+        public BSTIterator()
         {
-            newNode = node;
+            previousNodes=new Stack<>();
+            fillStack(head);
+            current=head;
         }
-        else if(newNode.compareTo(node)==1) {
-            addRec(rectangle,node.getRight(), node.getName());
+        public void fillStack(Node node)
+        {
+            if(node==null) {
+                return;
+            }
+
+           fillStack(node.getLeft());
+            previousNodes.push(node);
+            fillStack(node.getRight());
+
+
+
+
+        }
+        public boolean hasNext(){
+            return !previousNodes.isEmpty();
+        }
+        public Node next()
+        {
+            return previousNodes.pop();
+        }
+
+    }
+    public void addRec(MyRectangle rectangle,Node node, String name){
+        Node newNode= new Node(rectangle, name);
+
+            if(head==null)
+            {
+                head = new Node(newNode);
+                size++;
+            }
+
+
+         else if(newNode.compareTo(node)==1) {
+            newNode.setPrevious(node);
+            if(node.getRight()==null)
+            {
+                node.setRight(newNode);
+                size++;
+            }
+            else {
+                addRec(rectangle, node.getRight(), name);
+            }
+
         }
         else if(newNode.compareTo(node)==-1) {
-            addRec(rectangle,node.getLeft(), node.getName());
+            newNode.setPrevious(node);
+            if (node.getRight()==null)
+            {
+                node.setLeft(newNode);
+                size++;
+            }
+            else {
+                addRec(rectangle, node.getLeft(), name);
+            }
         }
     }
-    public void Locate(MyRectangle rectangle,Node node){
-        Node newNode= new Node(rectangle, null);
-        if (newNode.compareTo(node)==0)
+    public MyRectangle Locate(String name){
+        BSTIterator iterator=new BSTIterator();
+        while(iterator.hasNext())
         {
-            node=newNode;
+            Node hold = iterator.next();
+            if(name.equals(hold.getName()))
+            {
+                return hold.getRect();
+            }
         }
-        else if(newNode.compareTo(node)==1) {
-            Locate(rectangle,node.getRight());
-        }
-        else if(newNode.compareTo(node)==-1) {
-            Locate(rectangle,node.getLeft());
-        }
-
-        //What do I return?
+        return null;
     }
-    public MyRectangle remove(String name, Node node)
+    public MyRectangle remove(String name)
     {
-        MyRectangle rectangle = new MyRectangle(null);
-        //How to seach and which side should i replace it with
-        if(name.equals(node.getName()))
+        BSTIterator iterator= new BSTIterator();
+        head=null;
+        MyRectangle r = null;
+        while(iterator.hasNext())
         {
-            Node holdLeft = node.getLeft();
-            Node holdRight = node.getRight();
-
+            Node hold = iterator.next();
+            if(!(name.equals(hold.getName())))
+            {
+                addRec(hold.getRect(),head,hold.getName());
+            }
+            else if(name.equals(hold.getName()))
+            {
+                r=hold.getRect();
+                size--;
+            }
         }
 
-        return rectangle;
+        return r;
+
     }
-    public MyRectangle remove(MyRectangle rectangle, Node node)
+    public MyRectangle remove(MyRectangle rectangle)
     {
-        Node newNode= new Node(rectangle, null);
-        if (newNode.compareTo(node)==0)
+        BSTIterator iterator= new BSTIterator();
+        head=null;
+        MyRectangle r = null;
+        while(iterator.hasNext())
         {
-            node=newNode;
-        }
-        else if(newNode.compareTo(node)==1) {
-            Locate(rectangle,node.getRight());
-        }
-        else if(newNode.compareTo(node)==-1) {
-            Locate(rectangle,node.getLeft());
+            Node hold = iterator.next();
+            if(!(rectangle.equals(hold.getRect())))
+            {
+                addRec(hold.getRect(),head,hold.getName());
+            }
+            else if(rectangle.equals(hold.getRect()))
+            {
+                r =hold.getRect();
+                size--;
+            }
         }
 
         return rectangle;
@@ -121,5 +145,11 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
 
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public Iterator<Node<T>> iterator() {
+
+        return bstIterator;
     }
 }

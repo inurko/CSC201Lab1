@@ -88,27 +88,30 @@ public class CommandProcessor {
                             Integer.parseInt(argQ.remove()));
 
                     MyRectangle myRect = new MyRectangle(r1);
-                    Node node = new Node(myRect, Name);
-                    b.addRec(myRect, node, node.getName());
+
+                    b.addRec(myRect, b.getHead(), Name);
                     break;
 
                 case "remove":
                     String argInput = argQ.remove();
                     try {
                         int x = Integer.parseInt(argInput);
-                        argQ.remove();
-                        argQ.remove();
-                        argQ.remove();
+                        Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
+                        MyRectangle remove = new MyRectangle(removed);
+                        b.remove(remove);
+                        System.out.println("SLJKSAKJLD SIZE " + b.getSize());
                         System.out.println("remove2");
                         //call remove method
                     } catch (NumberFormatException e) {
                         System.out.println("remove1");
+                        System.out.println("12123312");
+                        b.remove(argInput);
                         //call other remove method
                     }
 
                     break;
 
-                 /*       if (argQ.peek().getClass().getSimpleName().equals("String")) {
+                 /*       if (argQ.peek().getClass().g.equals("StrietSimpleName()ng")) {
                             argQ.remove();
                           System.out.println("remove1");
 
@@ -148,6 +151,10 @@ public class CommandProcessor {
                     break;
 
             }
+
+            System.out.println(" head :" + b.getHead());
+            System.out.println(" size :" + b.getSize());
+
 
 
         }

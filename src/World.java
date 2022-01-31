@@ -38,18 +38,24 @@ public class World {
 
     //check the intersection
     public void intersections() {
+
     }
 
 
     //remove by the content of the rectangle
     public MyRectangle remove(MyRectangle rect) {
-        return tree.remove(rect,tree.getHead());
+        return tree.remove(rect);
     }
 
 
     //remove by the name of the rectangle
     public MyRectangle remove(String name) {
-        return tree.remove(name, tree.getHead());
+        return tree.remove(name);
     }
+    public MyRectangle searchName(String name)
+    {
+        return tree.Locate(name);
+    }
+
 
 }
