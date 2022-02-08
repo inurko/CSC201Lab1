@@ -90,21 +90,29 @@ public class CommandProcessor {
                     MyRectangle myRect = new MyRectangle(r1);
 
                     b.addRec(myRect, b.getHead(), Name);
+
+
                     break;
 
                 case "remove":
+
+                    System.out.println("tree before remove: "); b.printTree(b.getHead());
+
                     String argInput = argQ.remove();
                     try {
                         int x = Integer.parseInt(argInput);
+                        System.out.println("remove2");
                         Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
+                        System.out.println("Removed: " + removed);
                         MyRectangle remove = new MyRectangle(removed);
                         b.remove(remove);
-                        System.out.println("SLJKSAKJLD SIZE " + b.getSize());
-                        System.out.println("remove2");
+                        System.out.println("tree after remove: "); b.printTree(b.getHead());
+
+
+
                         //call remove method
                     } catch (NumberFormatException e) {
                         System.out.println("remove1");
-                        System.out.println("12123312");
                         b.remove(argInput);
                         //call other remove method
                     }
@@ -127,33 +135,39 @@ public class CommandProcessor {
                             System.out.println("remove2");
                         }
 
-                  */
+/*
 
                 case "regionsearch":
                     argQ.remove();
                     argQ.remove();
                     argQ.remove();
                     argQ.remove();
-                    System.out.println("regionsearch");
+              //      System.out.println("regionsearch");
                     break;
 
                 case "intersections":
-                    System.out.println("intersections");
+                 //   System.out.println("intersections");
 
-
+*/
                 case "dump":
-                    System.out.println("dump");
+                    break;
 
 
                 case "search":
-                    argQ.remove();
                     System.out.println("search");
+                    ArrayList<MyRectangle> a = b.Locate(argQ.remove());
+                    for (Object r: a){
+                        System.out.println("r: " + r);
+                    }
                     break;
 
             }
 
-            System.out.println(" head :" + b.getHead());
-            System.out.println(" size :" + b.getSize());
+          //  System.out.println(" head :" + b.getHead());
+           // System.out.println(" size :" + b.getSize());
+
+
+
 
 
 

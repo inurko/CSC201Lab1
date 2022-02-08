@@ -52,10 +52,7 @@ public class World {
     public MyRectangle remove(String name) {
         return tree.remove(name);
     }
-    public MyRectangle searchName(String name)
-    {
-        return tree.Locate(name);
-    }
+
 
 
 }

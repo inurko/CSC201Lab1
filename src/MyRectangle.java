@@ -15,7 +15,7 @@ public class MyRectangle implements Comparable<MyRectangle> {
     }
     public int compareTo(MyRectangle rectangle1)
     {
-        if(rectangle1.equals(rectangle)) {
+        if(rectangle1.getRectangle().equals(rectangle)) {
             return 0;
         }
         else if(rectangle.getWidth()*rectangle.getHeight()>rectangle1.getRectangle().getHeight()*rectangle1.getRectangle().getWidth())
@@ -28,4 +28,10 @@ public class MyRectangle implements Comparable<MyRectangle> {
     public Rectangle getRectangle() {
         return rectangle;
     }
+
+    @Override
+    public String toString(){
+        return " " + rectangle;
+    }
+
 }

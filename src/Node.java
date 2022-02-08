@@ -83,4 +83,9 @@ public class Node<T extends Comparable<T>> {
         this.previous = previous;
     }
 
+    @Override
+    public String toString(){
+        return name;
+    }
+
 }

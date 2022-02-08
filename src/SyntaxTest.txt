@@ -14,7 +14,7 @@ dump
 search r_r
 
 remove r_r
-remove 4 2 0 0
+remove 0 0 4 0
 	
 regionsearch   -5 -5 20 20 
 
