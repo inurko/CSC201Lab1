@@ -15,6 +15,7 @@ public class MyRectangle implements Comparable<MyRectangle> {
     }
     public int compareTo(MyRectangle rectangle1)
     {
+
         if(rectangle1.getRectangle().equals(rectangle)) {
             return 0;
         }

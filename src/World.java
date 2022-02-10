@@ -5,6 +5,8 @@
  */
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class World {
     //set up the range and points for the whole world
@@ -19,25 +21,58 @@ public class World {
     }
 
     //check if the rectangle is inside the range of the World
+    //check if the rectangle is inside the range of the World
     public boolean validRegion(Rectangle rect){
-        if(rect.intersects(WORLD_REC))
+
+        if(rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
         {
-            return false;
+     //       return false;
         }
         return true;
     }
 
     //region search for rectangle
     public void regionSearch(Rectangle region) {
-        if(!validRegion(region)||region.getHeight()==0)
+        ArrayList<MyRectangle> rectangles=new ArrayList<>();//Holds all the rectangles in the region
+        if(region.getHeight()==0||region.getWidth()==0)
         {
+            System.out.println("rectangle bad");
             return;
         }
+        else{
+            Iterator<Node<MyRectangle>> iterator = tree.iterator();//A loop in the array
 
-    }
+            while (iterator.hasNext()) {
+                Node<MyRectangle> hold = iterator.next();//current node in iteration
+                Rectangle rect = hold.getRect().getRectangle();//current rectangle
+                if (!(rect.getX() < region.getX() || rect.getX() > (region.getX() + region.getWidth()) || rect.getY() < region.getY() || rect.getY() < (region.getY() + region.getHeight())) || rect.intersects(region)) {
+                    rectangles.add(hold.getRect());;
+                }
 
-    //check the intersection
-    public void intersections() {
+            }}
+
+            for (MyRectangle r : rectangles){
+                System.out.println("Rectangle intersecting " + r.getRectangle().getX() + " " + r.getRectangle().getY() + " " + r.getRectangle().getWidth() + " " + r.getRectangle().getHeight());
+            }
+        }
+
+
+
+                //check the intersection
+    public void intersections(Rectangle rect) {
+        ArrayList<MyRectangle> rectangles=new ArrayList<>();//Holds all the rectangles in the region
+        Iterator<Node<MyRectangle>> iterator;
+        if(rect.getHeight()==0||rect.getWidth()==0)
+        {
+            System.out.println("rectangle bad");
+            return;
+        } else {
+                    iterator = tree.iterator();
+
+        }
+                return;
+
+
 
     }
 
@@ -52,7 +87,6 @@ public class World {
     public MyRectangle remove(String name) {
         return tree.remove(name);
     }
-
 
 
 }

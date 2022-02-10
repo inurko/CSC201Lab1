@@ -134,7 +134,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
         while(iterator.hasNext())
         {
             Node hold = new Node (iterator.next());
-            System.out.println("hold: " + hold.getRect().getRectangle());
+
             if(!(rectangle.compareTo(hold.getRect()) == 0))
             {
                 addRec(hold.getRect(),head,hold.getName());
@@ -175,6 +175,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
 
     @Override
     public Iterator<Node<T>> iterator() {
+        bstIterator=new BSTIterator();
         return bstIterator;
     }
 

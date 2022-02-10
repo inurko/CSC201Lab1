@@ -18,11 +18,13 @@ import java.util.LinkedList;
  */
 
 public class CommandProcessor {
+
+    World world;
     /**
      * Instantiates a new command processor
      */
     public CommandProcessor(String fileName) throws FileNotFoundException {
-        World world = new World();
+        world = new World();
         run(new File(fileName));
     }
 
@@ -31,21 +33,6 @@ public class CommandProcessor {
      */
     public void run(File myFile) throws FileNotFoundException {
 
-        /*
-        String test = "1 2    23 4 5 ";
-        String result = "";
-        String input = "";
-        Scanner testS = new Scanner(test);
-
-        while (testS.hasNext()){
-             input = testS.next();
-            if(!input.equals(" ")){
-                result += input;
-            }
-        }
-        System.out.println("result: " + result);
-
-         */
 
         FileInputStream file = new FileInputStream(myFile);
         Scanner scnr = new Scanner(file);
@@ -53,7 +40,7 @@ public class CommandProcessor {
         String input;
         ArrayList<String> args = new ArrayList<>();
         Queue<String> argQ = new LinkedList<String>();
-        BST b = new BST();
+
 
         while (scnr.hasNext()) {
             String argLine = scnr.nextLine(); //takes in first line from arg file
@@ -78,6 +65,7 @@ public class CommandProcessor {
             switch (s) {
 
                 case "insert":
+                    System.out.println("                   ");
                     System.out.println("insert");
 
                     String Name = argQ.remove();
@@ -89,14 +77,13 @@ public class CommandProcessor {
 
                     MyRectangle myRect = new MyRectangle(r1);
 
-                    b.addRec(myRect, b.getHead(), Name);
-
+                    if (world.validRegion(r1)){
+                    world.tree.addRec(myRect, world.tree.getHead(), Name);}
+                    else { System.out.println("Rectangle Rejected: " +r1.toString());  }
 
                     break;
 
                 case "remove":
-
-                    System.out.println("tree before remove: "); b.printTree(b.getHead());
 
                     String argInput = argQ.remove();
                     try {
@@ -105,67 +92,35 @@ public class CommandProcessor {
                         Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
                         System.out.println("Removed: " + removed);
                         MyRectangle remove = new MyRectangle(removed);
-                        b.remove(remove);
-                        System.out.println("tree after remove: "); b.printTree(b.getHead());
-
+                        world.tree.remove(remove);
 
 
                         //call remove method
                     } catch (NumberFormatException e) {
                         System.out.println("remove1");
-                        b.remove(argInput);
+                        world.tree.remove(argInput);
                         //call other remove method
                     }
 
                     break;
 
-                 /*       if (argQ.peek().getClass().g.equals("StrietSimpleName()ng")) {
-                            argQ.remove();
-                          System.out.println("remove1");
-
-                            System.out.println("next elements: " + argQ.remove() + " 2 " + argQ.peek());
-
-                            System.out.println(argQ.peek().getClass().getSimpleName());
-                        }
-                        else {
-                            argQ.remove();
-                            argQ.remove();
-                            argQ.remove();
-                            argQ.remove();
-                            System.out.println("remove2");
-                        }
-
-/*
-
-                case "regionsearch":
-                    argQ.remove();
-                    argQ.remove();
-                    argQ.remove();
-                    argQ.remove();
-              //      System.out.println("regionsearch");
-                    break;
-
-                case "intersections":
-                 //   System.out.println("intersections");
-
-*/
                 case "dump":
                     break;
 
 
                 case "search":
                     System.out.println("search");
-                    ArrayList<MyRectangle> a = b.Locate(argQ.remove());
+                    ArrayList<MyRectangle> a = world.tree.Locate(argQ.remove());
                     for (Object r: a){
                         System.out.println("r: " + r);
                     }
                     break;
 
+                case "regionsearch":
+                    Rectangle rectangleSearched = new Rectangle(Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()));
+                    world.regionSearch(rectangleSearched);
+
             }
-
-          //  System.out.println(" head :" + b.getHead());
-           // System.out.println(" size :" + b.getSize());
-
 
 
 
