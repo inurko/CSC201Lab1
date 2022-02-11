@@ -65,7 +65,7 @@ public class CommandProcessor {
             switch (s) {
 
                 case "insert":
-                    System.out.println("                   ");
+                    System.out.println("                         ");
                     System.out.println("insert");
 
                     String Name = argQ.remove();
@@ -117,8 +117,14 @@ public class CommandProcessor {
                     break;
 
                 case "regionsearch":
+                    System.out.println("regionsearch");
                     Rectangle rectangleSearched = new Rectangle(Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()));
                     world.regionSearch(rectangleSearched);
+                    break;
+
+                case "intersections":
+                    System.out.println("intersections");
+                    world.intersections();
 
             }
 

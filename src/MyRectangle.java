@@ -32,7 +32,7 @@ public class MyRectangle implements Comparable<MyRectangle> {
 
     @Override
     public String toString(){
-        return " " + rectangle;
+        return " " + rectangle.x + " " + rectangle.y + " " + rectangle.width + " " + rectangle.height;
     }
 
 }

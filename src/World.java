@@ -5,8 +5,7 @@
  */
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class World {
     //set up the range and points for the whole world
@@ -24,10 +23,38 @@ public class World {
     //check if the rectangle is inside the range of the World
     public boolean validRegion(Rectangle rect){
 
-        if(rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
-        {
-     //       return false;
+
+        if (!rect.intersects(WORLD_REC)){
+            System.out.println("1");
+        } if (rect.getWidth()==0){
+            System.out.println("2");
+        } if (rect.getHeight()==0){
+            System.out.println("3");
+        } if (rect.getWidth()> 1024){
+            System.out.println("4");
+        } if (rect.getHeight()>1024){
+            System.out.println("5");
+        } if(rect.getX()<0){
+            System.out.println("6");
+        } if (rect.getX()>1024){
+            System.out.println("7");
+        } if (rect.getY()<0){
+            System.out.println("8");
+        } if (rect.getY()>1024){
+            System.out.println("9");
         }
+        System.out.println("height" + rect.getHeight());
+            if(! rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
+        {
+            return false;
+        }
+        System.out.println("rect y + height = " + (rect.getY() + rect.height));
+        if( ( (rect.getX() + rect.width) > 1024) || ((rect.getY() + rect.height)<0) || (rect.getY() + rect.height) > 1024 ){ //alkdkjsklsdksla
+            return false;
+        }
+
+
+
         return true;
     }
 
@@ -59,18 +86,36 @@ public class World {
 
 
                 //check the intersection
-    public void intersections(Rectangle rect) {
-        ArrayList<MyRectangle> rectangles=new ArrayList<>();//Holds all the rectangles in the region
-        Iterator<Node<MyRectangle>> iterator;
-        if(rect.getHeight()==0||rect.getWidth()==0)
-        {
-            System.out.println("rectangle bad");
-            return;
-        } else {
-                    iterator = tree.iterator();
+    public void intersections() {
 
+        ArrayList<Node<MyRectangle>> rectangleL = new ArrayList<Node<MyRectangle>>();
+        Iterator<Node<MyRectangle>> iterator1 = tree.iterator();
+
+        while (iterator1.hasNext()){
+            rectangleL.add(iterator1.next());
+                }
+
+        for (int i = 0; i < rectangleL.size(); i++){
+            Node<MyRectangle> hold1 = rectangleL.get(i);//current node in iteration
+            Rectangle rect1 = hold1.getRect().getRectangle();  //current rectangle
+
+            for (int j = i; j < rectangleL.size(); j++){
+                boolean intersect = false;
+
+                Node<MyRectangle> hold2 = rectangleL.get(j);
+                Rectangle rect2 = hold2.getRect().getRectangle();//current rectangle
+
+                if (hold1.getName().equals(hold2.getName())){
+                    intersect = false;
+                }
+                else if (rect1.intersects(rect2)){
+                    intersect = true;}
+
+                if (intersect){
+                    System.out.println(hold1 + "  : " + hold2); }
+            }
         }
-                return;
+
 
 
 
