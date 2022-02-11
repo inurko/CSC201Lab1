@@ -4,18 +4,44 @@
  */
 
 import java.awt.*;
-
-import java.awt.*;
+import java.awt.Rectangle;
 
 public class MyRectangle implements Comparable<MyRectangle> {
+    // local variables for MyRectangle
     private Rectangle rectangle;
+    private String name;
 
-    public MyRectangle(Rectangle rectangle){
-        this.rectangle=rectangle;
+    // default constructor
+    public MyRectangle(){
+        name = "UnnamedRectangle";
+        rectangle = new Rectangle(0, 0, 0, 0);
     }
+
+    // constructor given all arguments
+    public MyRectangle(Rectangle rectangle, String name){
+        this.name = name;
+        this.rectangle = rectangle;
+    }
+
+    // constructor given no name
+    public MyRectangle(Rectangle rectangle){
+        name = "UnnamedRectangle";
+        this.rectangle = rectangle;
+    }
+
+    // getters and setters for name
+    public String getName(){ return name; }
+    public void setName(String newName){ name = newName; }
+
+    // getters and setters for rectangle
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+    public void setRectangle(double x, double y, double w, double h){ rectangle.setRect(x, y, w, h);}
+
+    // compareTo method for MyRectangle
     public int compareTo(MyRectangle rectangle1)
     {
-
         if(rectangle1.getRectangle().equals(rectangle)) {
             return 0;
         }
@@ -26,13 +52,9 @@ public class MyRectangle implements Comparable<MyRectangle> {
         }
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
-
     @Override
     public String toString(){
-        return " " + rectangle.x + " " + rectangle.y + " " + rectangle.width + " " + rectangle.height;
+        return " (" + name + ", " + rectangle.getX() + ", " + rectangle.getY() + ", " + rectangle.getWidth() + ", " + rectangle.getHeight() + ")";
     }
 
 }

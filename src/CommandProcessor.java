@@ -33,7 +33,7 @@ public class CommandProcessor {
      */
     public void run(File myFile) throws FileNotFoundException {
 
-
+        // opens file and creates necessary variables
         FileInputStream file = new FileInputStream(myFile);
         Scanner scnr = new Scanner(file);
         Scanner argParser;
@@ -41,52 +41,62 @@ public class CommandProcessor {
         ArrayList<String> args = new ArrayList<>();
         Queue<String> argQ = new LinkedList<String>();
 
-
+        // goes through file while there is another line
         while (scnr.hasNext()) {
             String argLine = scnr.nextLine(); //takes in first line from arg file
-
             argParser = new Scanner(argLine); //will parse through the line to get arguments
 
+            // while there is another string, reads into input string
             while (argParser.hasNext()) {
                 input = argParser.next();
 
                 if (!input.equals(" ")) {
                     args.add(input);
                     argQ.add(input);
-
                 }
             }
         }
+
         int i = 0;
 
+        // while the queue still has elements
         while (!argQ.isEmpty()) {
+            // take the first element (method instruction)
             String s = argQ.remove();
 
             switch (s) {
 
                 case "insert":
-                    System.out.println("                         ");
+                    System.out.println("                     ");
                     System.out.println("insert");
 
+                    // remove rectangle name from queue
                     String Name = argQ.remove();
 
+                    // create new rectangle object
                     Rectangle r1 = new Rectangle(Integer.parseInt(argQ.remove()),
                             Integer.parseInt(argQ.remove()),
                             Integer.parseInt(argQ.remove()),
                             Integer.parseInt(argQ.remove()));
 
-                    MyRectangle myRect = new MyRectangle(r1);
+                    // create new MyRectangle object
+                    MyRectangle myRect = new MyRectangle(r1, Name);
 
+                    // if the rectangle read is valid add it to binary tree, else reject and print
                     if (world.validRegion(r1)){
-                    world.tree.addRec(myRect, world.tree.getHead(), Name);}
-                    else { System.out.println("Rectangle Rejected: " +r1.toString());  }
+                        world.tree.addRec(myRect, world.tree.getHead(), Name);
+                        System.out.println("Rectangle accepted: " + myRect.toString());
+                    }
+                    else { System.out.println("Rectangle Rejected: " + myRect.toString());  }
 
                     break;
 
                 case "remove":
-
+                    // removes first element from queue
                     String argInput = argQ.remove();
+
                     try {
+
                         int x = Integer.parseInt(argInput);
                         System.out.println("remove2");
                         Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
@@ -105,6 +115,7 @@ public class CommandProcessor {
                     break;
 
                 case "dump":
+                    System.out.println("dump read");
                     break;
 
 
@@ -124,17 +135,9 @@ public class CommandProcessor {
 
                 case "intersections":
                     System.out.println("intersections");
-                    world.intersections();
+                    //world.intersections();
 
             }
-
-
-
-
-
         }
-
-
     }
     }
-
