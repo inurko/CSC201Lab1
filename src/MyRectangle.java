@@ -42,7 +42,16 @@ public class MyRectangle implements Comparable<MyRectangle> {
     // compareTo method for MyRectangle
     public int compareTo(MyRectangle rectangle1)
     {
-        if(rectangle1.getRectangle().equals(rectangle)) {
+
+        if(rectangle1.getName().equals(this.name)) {
+            return 0;
+        } if (rectangle1.getName().compareTo(this.name) > 0){
+            return 1;
+        } else {
+            return -1;
+        }
+
+     /*   if(rectangle1.getRectangle().equals(rectangle)) {
             return 0;
         }
         else if(rectangle.getWidth()*rectangle.getHeight()>rectangle1.getRectangle().getHeight()*rectangle1.getRectangle().getWidth())
@@ -50,6 +59,8 @@ public class MyRectangle implements Comparable<MyRectangle> {
         else{
             return-1;
         }
+
+      */
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
+import java.security.InvalidParameterException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -67,27 +68,31 @@ public class CommandProcessor {
             switch (s) {
 
                 case "insert":
-                    System.out.println("                     ");
+                    System.out.println("  ");
                     System.out.println("insert");
 
-                    // remove rectangle name from queue
-                    String Name = argQ.remove();
+                  try {  // remove rectangle name from queue
+                      String Name = argQ.remove();
 
-                    // create new rectangle object
-                    Rectangle r1 = new Rectangle(Integer.parseInt(argQ.remove()),
-                            Integer.parseInt(argQ.remove()),
-                            Integer.parseInt(argQ.remove()),
-                            Integer.parseInt(argQ.remove()));
+                      // create new rectangle object
+                      Rectangle r1 = new Rectangle(Integer.parseInt(argQ.remove()),
+                              Integer.parseInt(argQ.remove()),
+                              Integer.parseInt(argQ.remove()),
+                              Integer.parseInt(argQ.remove()));
 
-                    // create new MyRectangle object
-                    MyRectangle myRect = new MyRectangle(r1, Name);
+                      // create new MyRectangle object
+                      MyRectangle myRect = new MyRectangle(r1, Name);
 
-                    // if the rectangle read is valid add it to binary tree, else reject and print
-                    if (world.validRegion(r1)){
-                        world.tree.addRec(myRect, world.tree.getHead(), Name);
-                        System.out.println("Rectangle accepted: " + myRect.toString());
-                    }
-                    else { System.out.println("Rectangle Rejected: " + myRect.toString());  }
+                      // if the rectangle read is valid add it to binary tree, else reject and print
+                      if (world.validRegion(r1)) {
+                          world.tree.addRec(myRect, world.tree.getHead(), Name);
+                          System.out.println("Rectangle accepted: " + myRect.toString());
+                      } else {
+                          System.out.println("Rectangle Rejected: " + myRect.toString());
+                      }
+                  } catch (InvalidParameterException p){
+                      System.out.println(" Invalid Insert ");
+                  }
 
                     break;
 
@@ -99,10 +104,14 @@ public class CommandProcessor {
 
                         int x = Integer.parseInt(argInput);
                         System.out.println("remove2");
-                        Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
-                        System.out.println("Removed: " + removed);
-                        MyRectangle remove = new MyRectangle(removed);
-                        world.tree.remove(remove);
+                       try { Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
+                           System.out.println("Removed: " + removed);
+                           MyRectangle remove = new MyRectangle(removed);
+                           world.tree.remove(remove);
+                       } catch (InvalidParameterException p){
+                           System.out.println(" Invalid Remove ");
+                       }
+
 
 
                         //call remove method
@@ -120,23 +129,40 @@ public class CommandProcessor {
 
 
                 case "search":
+
                     System.out.println("search");
-                    ArrayList<MyRectangle> a = world.tree.Locate(argQ.remove());
-                    for (Object r: a){
-                        System.out.println("r: " + r);
-                    }
+                   try {
+                       ArrayList<MyRectangle> a = world.tree.Locate(argQ.remove());
+                       for (Object r : a) {
+                           System.out.println("r: " + r);
+                       }
+                   }catch (InvalidParameterException p){
+                       System.out.println(" Invalid Insert ");
+                   }
+
+
                     break;
 
                 case "regionsearch":
                     System.out.println("regionsearch");
-                    Rectangle rectangleSearched = new Rectangle(Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()));
+
+                try{    Rectangle rectangleSearched = new Rectangle(Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()));
                     world.regionSearch(rectangleSearched);
-                    break;
+                    break;}
+
+                catch (InvalidParameterException p){
+                    System.out.println(" Invalid Insert ");
+                }
 
                 case "intersections":
                     System.out.println("intersections");
-                    //world.intersections();
+                    world.intersections();
+                    break;
 
+                default:
+                    System.out.println("Invalid Command. Please Check Again.");
+
+                //    world.tree.printTree(world.tree.getHead());
             }
         }
     }

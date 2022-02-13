@@ -52,7 +52,6 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
 
             if(head==null)
             {
-                System.out.println("head added");
                 head = new Node(newNode);
                 size++;
             }
@@ -82,7 +81,9 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             }
         }
         else{
-            addRec(rectangle, node.getLeft(), name); //if the nodes are the same it adds on the left
+
+                node.setLeft(newNode);
+            //addRec(rectangle, node.getLeft(), name); //if the nodes are the same it adds on the left
         }
     }
 

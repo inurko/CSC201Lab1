@@ -24,7 +24,7 @@ public class World {
     public boolean validRegion(Rectangle rect){
 
 
-        if (!rect.intersects(WORLD_REC)){
+       /* if (!rect.intersects(WORLD_REC)){
             System.out.println("1");
         } if (rect.getWidth()==0){
             System.out.println("2");
@@ -43,12 +43,13 @@ public class World {
         } if (rect.getY()>1024){
             System.out.println("9");
         }
-        System.out.println("height" + rect.getHeight());
+
+        */
             if(! rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
         {
             return false;
         }
-        System.out.println("rect y + height = " + (rect.getY() + rect.height));
+
         if( ( (rect.getX() + rect.width) > 1024) || ((rect.getY() + rect.height)<0) || (rect.getY() + rect.height) > 1024 ){ //alkdkjsklsdksla
             return false;
         }
@@ -72,6 +73,8 @@ public class World {
             while (iterator.hasNext()) {
                 Node<MyRectangle> hold = iterator.next();//current node in iteration
                 Rectangle rect = hold.getRect().getRectangle();//current rectangle
+
+                System.out.println("RECT " + rect);
                 if (!(rect.getX() < region.getX() || rect.getX() > (region.getX() + region.getWidth()) || rect.getY() < region.getY() || rect.getY() < (region.getY() + region.getHeight())) || rect.intersects(region)) {
                     rectangles.add(hold.getRect());;
                 }
