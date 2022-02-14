@@ -68,9 +68,6 @@ public class CommandProcessor {
             switch (s) {
 
                 case "insert":
-                    // System.out.println("  ");
-                    // System.out.println("insert");
-
                   try {
                       // remove rectangle name from queue
                       String Name = argQ.remove();
@@ -143,19 +140,16 @@ public class CommandProcessor {
                    }catch (InvalidParameterException p){
                        System.out.println(" Invalid ");
                    }
-
-
                     break;
 
                 case "regionsearch":
-                    System.out.print("Rectangles intersecting region ");
-
                 try{
                     int x = Integer.parseInt(argQ.remove());
                     int y = Integer.parseInt(argQ.remove());
                     int w = Integer.parseInt(argQ.remove());
                     int h = Integer.parseInt(argQ.remove());
-                    System.out.println("(" + x + ", " + y + ", " + w + ", " + h + "):");
+                    //System.out.print("Rectangles intersecting region ");
+                    //System.out.println("(" + x + ", " + y + ", " + w + ", " + h + "):");
                     Rectangle rectangleSearched = new Rectangle(x, y, w, h);
                     world.regionSearch(rectangleSearched);
                     break;}
@@ -170,7 +164,7 @@ public class CommandProcessor {
                     break;
 
                 default:
-                    System.out.println("Invalid Command. Please Check Again.");
+                    System.out.println("Invalid Command. Please Check Again");
 
                 //    world.tree.printTree(world.tree.getHead());
             }

@@ -37,10 +37,11 @@ public class World {
         ArrayList<MyRectangle> rectangles=new ArrayList<>();//Holds all the rectangles in the region
         if(region.getHeight()==0||region.getWidth()==0)
         {
-            System.out.println("rectangle bad");
+            System.out.println("Rectangle rejected: (" + (int)region.getX() + ", " + (int)region.getY() + ", " + (int)region.getWidth() + ", " + (int)region.getHeight() + ")");
             return;
         }
         else{
+            System.out.println("Rectangles intersecting region (" + (int)region.getX() + ", " + (int)region.getY() + ", " + (int)region.getWidth() + ", " + (int)region.getHeight() + "):");
             Iterator<Node<MyRectangle>> iterator = tree.iterator();//A loop in the array
 
             while (iterator.hasNext()) {
