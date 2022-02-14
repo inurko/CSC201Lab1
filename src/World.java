@@ -123,6 +123,35 @@ public class World {
 
 
     }
+    public void Dump()
+    {
+        System.out.println("BST dump:");
+        if(tree.getHead()==null)
+        {
+            System.out.println("The node has depth 0, value (null)");
+            return;
+        }
+        System.out.println("The node has depth 0, value " +tree.getHead().getRect());
+        if(tree.getHead().getLeft()!=null){
+            DumpHelper(tree.getHead().getLeft(),1 );
+        }
+        if(tree.getHead().getRight()!=null){
+            DumpHelper(tree.getHead().getRight(),1 );
+        }
+        System.out.println("BST size is: "+tree.getSize());
+    }
+    public void DumpHelper(Node curr, int Depth)
+    {
+        System.out.print("The node has depth "+Depth+", value "+curr.getRect());
+        if(curr.getLeft()!=null){
+            DumpHelper(curr.getLeft(),Depth+1 );
+        }
+        if(curr.getRight()!=null){
+            DumpHelper(curr.getRight(),Depth+1);
+        }
+        else
+            return;
+    }
 
 
     //remove by the content of the rectangle
