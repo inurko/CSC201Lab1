@@ -68,10 +68,11 @@ public class CommandProcessor {
             switch (s) {
 
                 case "insert":
-                    System.out.println("  ");
-                    System.out.println("insert");
+                    // System.out.println("  ");
+                    // System.out.println("insert");
 
-                  try {  // remove rectangle name from queue
+                  try {
+                      // remove rectangle name from queue
                       String Name = argQ.remove();
 
                       // create new rectangle object
@@ -88,10 +89,10 @@ public class CommandProcessor {
                           world.tree.addRec(myRect, world.tree.getHead(), Name);
                           System.out.println("Rectangle accepted: " + myRect.toString());
                       } else {
-                          System.out.println("Rectangle Rejected: " + myRect.toString());
+                          System.out.println("Rectangle rejected: " + myRect.toString());
                       }
                   } catch (InvalidParameterException p){
-                      System.out.println(" Invalid Insert ");
+                      System.out.println("Invalid Insert Parameter Length: " );
                   }
 
                     break;
@@ -101,43 +102,46 @@ public class CommandProcessor {
                     String argInput = argQ.remove();
 
                     try {
-
+                        // if remove given integer parameters
                         int x = Integer.parseInt(argInput);
                         System.out.println("remove2");
-                       try { Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
+                       try {
+                           Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
                            System.out.println("Removed: " + removed);
                            MyRectangle remove = new MyRectangle(removed);
                            world.tree.remove(remove);
-                       } catch (InvalidParameterException p){
-                           System.out.println(" Invalid Remove ");
+                       }
+                       // check for wrong number of parameters
+                       catch (InvalidParameterException p){
+                           System.out.println("Invalid Remove Parameter Length: ");
                        }
 
 
-
-                        //call remove method
+                        //call remove method given rectangle name
                     } catch (NumberFormatException e) {
-                        System.out.println("remove1");
+                        // System.out.println("remove1");
                         world.tree.remove(argInput);
-                        //call other remove method
                     }
-
                     break;
 
                 case "dump":
                     System.out.println("dump read");
                     break;
 
-
                 case "search":
-
-                    System.out.println("search");
+                    // searches tree
+                    // System.out.println("search");
                    try {
-                       ArrayList<MyRectangle> a = world.tree.Locate(argQ.remove());
+                       String name = argQ.remove();
+                       ArrayList<MyRectangle> a = world.tree.Locate(name);
                        for (Object r : a) {
-                           System.out.println("r: " + r);
+                           System.out.println("Rectangle found: " + r);
+                       }
+                       if(a.isEmpty()){
+                           System.out.println("Rectangle not found: " + name);
                        }
                    }catch (InvalidParameterException p){
-                       System.out.println(" Invalid Insert ");
+                       System.out.println(" Invalid ");
                    }
 
 
@@ -155,7 +159,7 @@ public class CommandProcessor {
                 }
 
                 case "intersections":
-                    System.out.println("intersections");
+                    System.out.println("Intersection Pairs");
                     world.intersections();
                     break;
 
