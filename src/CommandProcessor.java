@@ -68,7 +68,7 @@ public class CommandProcessor {
             switch (s) {
 
                 case "insert":
-                    System.out.println("       ");
+                    System.out.println("  ");
                     System.out.println("insert");
 
                   try {  // remove rectangle name from queue

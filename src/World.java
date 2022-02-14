@@ -142,7 +142,7 @@ public class World {
     }
     public void DumpHelper(Node curr, int Depth)
     {
-        System.out.print("The node has depth "+Depth+", value "+curr.getRect());
+        System.out.println("The node has depth "+Depth+", value "+curr.getRect());
         if(curr.getLeft()!=null){
             DumpHelper(curr.getLeft(),Depth+1 );
         }

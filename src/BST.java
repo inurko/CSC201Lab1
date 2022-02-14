@@ -90,7 +90,6 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
     public ArrayList<MyRectangle> Locate(String name) {
         BSTIterator iterator = new BSTIterator();
         ArrayList<MyRectangle> rectangles = new ArrayList<>();
-
         while (iterator.hasNext()) {
             Node hold = iterator.next();
             if (name.equals(hold.getName())) {
@@ -136,7 +135,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
         {
             Node hold = new Node (iterator.next());
 
-            if(!(rectangle.compareTo(hold.getRect()) == 0))
+            if(rectangle.getRectangle().getX()!=hold.getRect().getRectangle().getX()||rectangle.getRectangle().getY()!=hold.getRect().getRectangle().getY()||rectangle.getRectangle().getHeight()!=hold.getRect().getRectangle().getHeight()||rectangle.getRectangle().getWidth()!=hold.getRect().getRectangle().getWidth())
             {
                 addRec(hold.getRect(),head,hold.getName());
             }
