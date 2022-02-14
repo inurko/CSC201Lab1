@@ -81,8 +81,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             }
         }
         else{
-
-                node.setLeft(newNode);
+            node.setLeft(newNode);
             //addRec(rectangle, node.getLeft(), name); //if the nodes are the same it adds on the left
         }
     }
@@ -103,7 +102,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
     {
         BSTIterator iterator= new BSTIterator();
         size = 0;
-        head=null;
+        head = null;
         MyRectangle r = null;
 
         while(iterator.hasNext())
@@ -168,17 +167,11 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             printTree (node.getLeft());
             System.out.println("Node: " + node);
             printTree(node.getRight());}
-
-        
-        
     }
 
     @Override
     public Iterator<Node<T>> iterator() {
-        bstIterator=new BSTIterator();
+        bstIterator = new BSTIterator();
         return bstIterator;
     }
-
-
-
 }
