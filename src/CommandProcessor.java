@@ -148,9 +148,15 @@ public class CommandProcessor {
                     break;
 
                 case "regionsearch":
-                    System.out.println("regionsearch");
+                    System.out.print("Rectangles intersecting region ");
 
-                try{    Rectangle rectangleSearched = new Rectangle(Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()));
+                try{
+                    int x = Integer.parseInt(argQ.remove());
+                    int y = Integer.parseInt(argQ.remove());
+                    int w = Integer.parseInt(argQ.remove());
+                    int h = Integer.parseInt(argQ.remove());
+                    System.out.println("(" + x + ", " + y + ", " + w + ", " + h + "):");
+                    Rectangle rectangleSearched = new Rectangle(x, y, w, h);
                     world.regionSearch(rectangleSearched);
                     break;}
 
@@ -159,7 +165,7 @@ public class CommandProcessor {
                 }
 
                 case "intersections":
-                    System.out.println("Intersection Pairs");
+                    System.out.println("Intersection pairs:");
                     world.intersections();
                     break;
 

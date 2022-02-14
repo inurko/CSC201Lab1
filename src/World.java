@@ -47,15 +47,16 @@ public class World {
                 Node<MyRectangle> hold = iterator.next();//current node in iteration
                 Rectangle rect = hold.getRect().getRectangle();//current rectangle
 
-                System.out.println("RECT " + rect);
+                // System.out.println("RECT " + rect);
                 if (!(rect.getX() < region.getX() || rect.getX() > (region.getX() + region.getWidth()) || rect.getY() < region.getY() || rect.getY() > (region.getY() + region.getHeight())) || rect.intersects(region)) {
                     rectangles.add(hold.getRect());;
                 }
 
-            }}
+            }
+        }
 
             for (MyRectangle r : rectangles){
-                System.out.println("Rectangle intersecting " + r.getRectangle().getX() + " " + r.getRectangle().getY() + " " + r.getRectangle().getWidth() + " " + r.getRectangle().getHeight());
+                System.out.println(r);
             }
         }
 
@@ -97,7 +98,7 @@ public class World {
         System.out.println("BST dump:");
         if(tree.getHead()==null)
         {
-            System.out.println("The node has depth 0, value (null)");
+            System.out.println("Node has depth 0, Value (null)\nBST size is: 0");
             return;
         }
         System.out.println("The node has depth 0, value " +tree.getHead().getRect());

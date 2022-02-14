@@ -66,7 +66,7 @@ public class MyRectangle implements Comparable<MyRectangle> {
 
     @Override
     public String toString(){
-        return " (" + name + ", " + (int)(rectangle.getX()) + ", " + (int)(rectangle.getY()) + ", " + (int)(rectangle.getWidth()) + ", " + (int)(rectangle.getHeight()) + ")";
+        return "(" + name + ", " + (int)(rectangle.getX()) + ", " + (int)(rectangle.getY()) + ", " + (int)(rectangle.getWidth()) + ", " + (int)(rectangle.getHeight()) + ")";
     }
 
 }
