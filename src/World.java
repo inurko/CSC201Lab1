@@ -20,41 +20,14 @@ public class World {
     }
 
     //check if the rectangle is inside the range of the World
-    //check if the rectangle is inside the range of the World
     public boolean validRegion(Rectangle rect){
-
-
-       /* if (!rect.intersects(WORLD_REC)){
-            System.out.println("1");
-        } if (rect.getWidth()==0){
-            System.out.println("2");
-        } if (rect.getHeight()==0){
-            System.out.println("3");
-        } if (rect.getWidth()> 1024){
-            System.out.println("4");
-        } if (rect.getHeight()>1024){
-            System.out.println("5");
-        } if(rect.getX()<0){
-            System.out.println("6");
-        } if (rect.getX()>1024){
-            System.out.println("7");
-        } if (rect.getY()<0){
-            System.out.println("8");
-        } if (rect.getY()>1024){
-            System.out.println("9");
-        }
-
-        */
-            if(! rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
+        if(! rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
         {
             return false;
         }
-
         if( ( (rect.getX() + rect.width) > 1024) || ((rect.getY() + rect.height)<0) || (rect.getY() + rect.height) > 1024 ){ //alkdkjsklsdksla
             return false;
         }
-
-
 
         return true;
     }
@@ -75,7 +48,7 @@ public class World {
                 Rectangle rect = hold.getRect().getRectangle();//current rectangle
 
                 System.out.println("RECT " + rect);
-                if (!(rect.getX() < region.getX() || rect.getX() > (region.getX() + region.getWidth()) || rect.getY() < region.getY() || rect.getY() < (region.getY() + region.getHeight())) || rect.intersects(region)) {
+                if (!(rect.getX() < region.getX() || rect.getX() > (region.getX() + region.getWidth()) || rect.getY() < region.getY() || rect.getY() > (region.getY() + region.getHeight())) || rect.intersects(region)) {
                     rectangles.add(hold.getRect());;
                 }
 
@@ -86,9 +59,7 @@ public class World {
             }
         }
 
-
-
-                //check the intersection
+    // check the intersection
     public void intersections() {
 
         ArrayList<Node<MyRectangle>> rectangleL = new ArrayList<Node<MyRectangle>>();
@@ -101,12 +72,14 @@ public class World {
         for (int i = 0; i < rectangleL.size(); i++){
             Node<MyRectangle> hold1 = rectangleL.get(i);//current node in iteration
             Rectangle rect1 = hold1.getRect().getRectangle();  //current rectangle
+            MyRectangle myRect1 = new MyRectangle(rect1, hold1.getName());
 
             for (int j = i; j < rectangleL.size(); j++){
                 boolean intersect = false;
 
                 Node<MyRectangle> hold2 = rectangleL.get(j);
                 Rectangle rect2 = hold2.getRect().getRectangle();//current rectangle
+                MyRectangle myRect2 = new MyRectangle(rect2, hold2.getName());
 
                 if (hold1.getName().equals(hold2.getName())){
                     intersect = false;
@@ -115,13 +88,9 @@ public class World {
                     intersect = true;}
 
                 if (intersect){
-                    System.out.println(hold1 + "  : " + hold2); }
+                    System.out.println(myRect1 + " : " + myRect2); }
             }
         }
-
-
-
-
     }
     public void Dump()
     {

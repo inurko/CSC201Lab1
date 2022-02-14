@@ -5,6 +5,7 @@
 
 import java.awt.*;
 import java.awt.Rectangle;
+import java.lang.*;
 
 public class MyRectangle implements Comparable<MyRectangle> {
     // local variables for MyRectangle
@@ -65,7 +66,7 @@ public class MyRectangle implements Comparable<MyRectangle> {
 
     @Override
     public String toString(){
-        return " (" + name + ", " + rectangle.getX() + ", " + rectangle.getY() + ", " + rectangle.getWidth() + ", " + rectangle.getHeight() + ")";
+        return " (" + name + ", " + (int)(rectangle.getX()) + ", " + (int)(rectangle.getY()) + ", " + (int)(rectangle.getWidth()) + ", " + (int)(rectangle.getHeight()) + ")";
     }
 
 }
