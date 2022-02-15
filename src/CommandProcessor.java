@@ -101,12 +101,20 @@ public class CommandProcessor {
                     try {
                         // if remove given integer parameters
                         int x = Integer.parseInt(argInput);
-                        System.out.println("remove2");
+                        // System.out.println("remove2");
                        try {
-                           Rectangle removed = new Rectangle( x, Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt( argQ.remove()));
-                           System.out.println("Removed: " + removed);
+                           int y = Integer.parseInt(argQ.remove());
+                           int w = Integer.parseInt(argQ.remove());
+                           int h = Integer.parseInt(argQ.remove());
+                           int initialSize = world.tree.getSize();
+                           Rectangle removed = new Rectangle( x, y, w, h);
+                           // System.out.println("Removed: " + removed);
                            MyRectangle remove = new MyRectangle(removed);
                            world.tree.remove(remove);
+                           int finalSize = world.tree.getSize();
+                           if(initialSize == finalSize){
+                               System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + ", " + w + ", " + h + ")");
+                           }
                        }
                        // check for wrong number of parameters
                        catch (InvalidParameterException p){
@@ -117,7 +125,13 @@ public class CommandProcessor {
                         //call remove method given rectangle name
                     } catch (NumberFormatException e) {
                         // System.out.println("remove1");
-                        world.tree.remove(argInput);
+                        ArrayList<MyRectangle> a = world.tree.Locate(argInput);
+                        if(!a.isEmpty()) {
+                            world.tree.remove(argInput);
+                        }
+                        else{
+                            System.out.println("Rectangle rejected: " + argInput);
+                        }
                     }
                     break;
 
@@ -165,9 +179,7 @@ public class CommandProcessor {
 
                 default:
                     System.out.println("Invalid Command. Please Check Again");
-
-                //    world.tree.printTree(world.tree.getHead());
             }
         }
     }
-    }
+}

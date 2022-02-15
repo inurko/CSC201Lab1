@@ -149,17 +149,19 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             }
             else
             {
-                if(r!=null) {
-                    if(r.getName().compareTo(hold.getName())==-1||r.getName().compareTo(hold.getName())==-0) {
+                if(r==null) {
+                    r = hold.getRect();
+                 }
+                else {
+
+                    if(r.getName().compareTo(hold.getName())==-1||r.getName().compareTo(hold.getName())==0) {
                         addRec(hold.getRect(), head, r.getName());
                         r = hold.getRect();
                     }
                     else{
-                        addRec(hold.getRect(), head,hold.getName());
+                        addRec(hold.getRect(), head, hold.getName());
                     }
-                 }
-                else {
-                    r = hold.getRect();
+
                 }
             }
         }
