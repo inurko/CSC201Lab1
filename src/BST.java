@@ -32,8 +32,8 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             if(node==null) {
                 return;
             }
-           fillStack(node.getLeft());
             previousNodes.push(node);
+           fillStack(node.getLeft());
             fillStack(node.getRight());
         }
 
@@ -80,8 +80,13 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
                 addRec(rectangle, node.getLeft(), name);
             }
         }
-        else{
+        else if(newNode.compareTo(node)==0){
+            while(node.getLeft()!=null){
+                node=node.getLeft();
+            }
             node.setLeft(newNode);
+            newNode.setPrevious(node);
+            size++;
             //addRec(rectangle, node.getLeft(), name); //if the nodes are the same it adds on the left
         }
     }
@@ -114,12 +119,16 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             {
                 addRec(hold.getRect(),head,hold.getName()); //change head to hold?
             }
-            else if(name.equals(hold.getName()))
+            else
             {
-                r=hold.getRect();
+                if(r==null) {
+                    r= hold.getRect();
 
+                }
+                else
+                    addRec(r,head,r.getName());
+                    r= hold.getRect();
             }
-
         }
         return r;
     }
@@ -140,7 +149,18 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
             }
             else
             {
-                r=hold.getRect();
+                if(r!=null) {
+                    if(r.getName().compareTo(hold.getName())==-1||r.getName().compareTo(hold.getName())==-0) {
+                        addRec(hold.getRect(), head, r.getName());
+                        r = hold.getRect();
+                    }
+                    else{
+                        addRec(hold.getRect(), head,hold.getName());
+                    }
+                 }
+                else {
+                    r = hold.getRect();
+                }
             }
         }
         return r;
