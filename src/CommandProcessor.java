@@ -44,142 +44,167 @@ public class CommandProcessor {
 
         // goes through file while there is another line
         while (scnr.hasNext()) {
+            String methodCall = "";
             String argLine = scnr.nextLine(); //takes in first line from arg file
             argParser = new Scanner(argLine); //will parse through the line to get arguments
 
-            // while there is another string, reads into input string
             while (argParser.hasNext()) {
                 input = argParser.next();
 
-                if (!input.equals(" ")) {
+                if(!input.equals(" ")){
+                    if(args.isEmpty()){ methodCall = input;}
                     args.add(input);
                     argQ.add(input);
                 }
             }
-        }
 
-        int i = 0;
-
-        // while the queue still has elements
-        while (!argQ.isEmpty()) {
-            // take the first element (method instruction)
-            String s = argQ.remove();
-
-            switch (s) {
-
+            switch (methodCall){
                 case "insert":
-                  try {
-                      // remove rectangle name from queue
-                      String Name = argQ.remove();
+                    if(args.size() == 6 ){
+                        //System.out.println(argQ.remove());
+                        argQ.remove();
 
-                      // create new rectangle object
-                      Rectangle r1 = new Rectangle(Integer.parseInt(argQ.remove()),
-                              Integer.parseInt(argQ.remove()),
-                              Integer.parseInt(argQ.remove()),
-                              Integer.parseInt(argQ.remove()));
+                        // remove rectangle name from queue
+                        String Name = argQ.remove();
+                        //System.out.println(Name);
+                        // create new rectangle object
 
-                      // create new MyRectangle object
-                      MyRectangle myRect = new MyRectangle(r1, Name);
+                        Rectangle r1 = new Rectangle(Integer.parseInt(argQ.remove()),
+                                Integer.parseInt(argQ.remove()),
+                                Integer.parseInt(argQ.remove()),
+                                Integer.parseInt(argQ.remove()));
 
-                      // if the rectangle read is valid add it to binary tree, else reject and print
-                      if (world.validRegion(r1)) {
-                          world.tree.addRec(myRect, world.tree.getHead(), Name);
-                          System.out.println("Rectangle accepted: " + myRect.toString());
-                      } else {
-                          System.out.println("Rectangle rejected: " + myRect.toString());
-                      }
-                  } catch (InvalidParameterException p){
-                      System.out.println("Invalid Insert Parameter Length: " );
-                  }
+                        // create new MyRectangle object
+                        MyRectangle myRect = new MyRectangle(r1, Name);
 
-                    break;
-
-                case "remove":
-                    // removes first element from queue
-                    String argInput = argQ.remove();
-
-                    try {
-                        // if remove given integer parameters
-                        int x = Integer.parseInt(argInput);
-                        // System.out.println("remove2");
-                       try {
-                           int y = Integer.parseInt(argQ.remove());
-                           int w = Integer.parseInt(argQ.remove());
-                           int h = Integer.parseInt(argQ.remove());
-                           int initialSize = world.tree.getSize();
-                           Rectangle removed = new Rectangle( x, y, w, h);
-                           // System.out.println("Removed: " + removed);
-                           MyRectangle remove = new MyRectangle(removed);
-                           world.tree.remove(remove);
-                           int finalSize = world.tree.getSize();
-                           if(initialSize == finalSize){
-                               System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + ", " + w + ", " + h + ")");
-                           }
-                       }
-                       // check for wrong number of parameters
-                       catch (InvalidParameterException p){
-                           System.out.println("Invalid Remove Parameter Length: ");
-                       }
-
-
-                        //call remove method given rectangle name
-                    } catch (NumberFormatException e) {
-                        // System.out.println("remove1");
-                        ArrayList<MyRectangle> a = world.tree.Locate(argInput);
-                        if(!a.isEmpty()) {
-                            world.tree.remove(argInput);
+                        // if the rectangle read is valid add it to binary tree, else reject and print
+                        if (world.validRegion(r1)) {
+                            world.tree.addRec(myRect, world.tree.getHead(), Name);
+                            System.out.println("Rectangle accepted: " + myRect.toString());
+                        } else {
+                            System.out.println("Rectangle rejected: " + myRect.toString());
                         }
-                        else{
-                            System.out.println("Rectangle rejected: " + argInput);
-                        }
+                        args.clear();
+
+                    } else {
+                        System.out.println("Invalid Insert Parameter Length: " + args.size());
+                        args.clear();
+                        argQ.clear();
                     }
                     break;
 
-                case "dump":
-                    world.Dump();
-                    break;
-
-                case "search":
-                    // searches tree
-                    // System.out.println("search");
-                   try {
-                       String name = argQ.remove();
-                       ArrayList<MyRectangle> a = world.tree.Locate(name);
-                       for (Object r : a) {
-                           System.out.println("Rectangle found: " + r);
-                       }
-                       if(a.isEmpty()){
-                           System.out.println("Rectangle not found: " + name);
-                       }
-                   }catch (InvalidParameterException p){
-                       System.out.println(" Invalid ");
-                   }
-                    break;
-
                 case "regionsearch":
-                try{
-                    int x = Integer.parseInt(argQ.remove());
-                    int y = Integer.parseInt(argQ.remove());
-                    int w = Integer.parseInt(argQ.remove());
-                    int h = Integer.parseInt(argQ.remove());
-                    //System.out.print("Rectangles intersecting region ");
-                    //System.out.println("(" + x + ", " + y + ", " + w + ", " + h + "):");
-                    Rectangle rectangleSearched = new Rectangle(x, y, w, h);
-                    world.regionSearch(rectangleSearched);
-                    break;}
+                    if (args.size() == 5){
+                        //System.out.println("regionsearch");
+                        argQ.remove();
 
-                catch (InvalidParameterException p){
-                    System.out.println(" Invalid Insert ");
-                }
+                        Rectangle rectangleSearched = new Rectangle(Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()), Integer.parseInt(argQ.remove()));
+                        world.regionSearch(rectangleSearched);
+
+                        args.clear();
+                    } else {
+                        System.out.println("Invalid Region Search Parameter Length: " + args.size());
+                        args.clear();
+                        argQ.clear();
+                    }
+                    break;
 
                 case "intersections":
-                    System.out.println("Intersection pairs:");
-                    world.intersections();
+                    if (args.size() == 1){
+                        System.out.println("Intersection pairs:");
+                        world.intersections();
+                        args.clear();
+                    } else {
+                        System.out.println("Invalid Intersections Parameter Length: " + args.size());
+                        args.clear();
+                        argQ.clear();
+                    }break;
+
+
+                case "dump":
+                    if (args.size() == 1) {
+                        world.Dump();
+                        args.clear();
+                        argQ.clear();
+                    } else {
+                        System.out.println("Invalid Dump Parameter Length: " + args.size());
+                        args.clear();
+                        argQ.clear();
+                    }break;
+
+                case "search":
+                    if (((args.size() == 2) || (args.size() == 5)) && (args.get(0).equalsIgnoreCase("search"))) {
+                        //System.out.println("search");
+                        argQ.remove();
+                        try {
+                            String name = argQ.remove();
+                            ArrayList<MyRectangle> a = world.tree.Locate(name);
+                            if(a.isEmpty()){
+                                System.out.println("Rectangle not found: " + name);
+                            }
+                            for (Object r : a) {
+                                System.out.println("Rectangle found: " + r);
+                            }
+                        } catch (InvalidParameterException p) {
+                            System.out.println(" Invalid Insert ");
+                        }
+                        args.clear();
+                    }else {
+                        System.out.println("Invalid Search Parameter Length: " + args.size());
+                        args.clear();
+                        argQ.clear();
+                    }break;
+
+                case "remove":
+                    if ((args.size() == 2) || (args.size() == 5))  {
+                        argQ.remove();
+                        // removes first element from queue
+                        String argInput = argQ.remove();
+                        try {
+                            int x = Integer.parseInt(argInput);
+                            int y = Integer.parseInt(argQ.remove());
+                            int w = Integer.parseInt(argQ.remove());
+                            int h = Integer.parseInt(argQ.remove());
+                            int initialSize = world.tree.getSize();
+                            Rectangle removed = new Rectangle( x, y, w, h);//System.out.println("Removed: " + removed);
+                            MyRectangle remove = new MyRectangle(removed);
+                            world.tree.remove(remove);
+                            int finalSize = world.tree.getSize();
+                            if(initialSize == finalSize){
+                                System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + ", " + w + ", " + h + ")");
+                            }
+
+
+                            //call remove method
+                        } catch (NumberFormatException e) {
+                            // System.out.println("remove1");
+                            ArrayList<MyRectangle> a = world.tree.Locate(argInput);
+                            if(!a.isEmpty()) {
+                                world.tree.remove(argInput);
+                            }
+                            else{
+                                System.out.println("Rectangle rejected: " + argInput);
+                            }
+                        }
+
+                        args.clear();
+                    } else {
+                        System.out.println("Invalid Remove Parameter Length: " + args.size());
+                        args.clear();
+                        argQ.clear();
+                    }break;
+
+                case "":
                     break;
 
                 default:
                     System.out.println("Invalid Command. Please Check Again");
+                    args.clear();
+                    argQ.clear();
+                    break;
             }
         }
+
+
     }
 }

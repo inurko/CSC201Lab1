@@ -102,7 +102,7 @@ public class World {
             System.out.println("Node has depth 0, Value (null)\nBST size is: 0");
             return;
         }
-        System.out.println("The node has depth 0, value " +tree.getHead().getRect());
+        System.out.println("Node has depth 0, Value " +tree.getHead().getRect());
         if(tree.getHead().getLeft()!=null){
             DumpHelper(tree.getHead().getLeft(),1 );
         }
