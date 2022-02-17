@@ -19,24 +19,17 @@ public class World {
         tree = new BST<>();
     }
 
-    //check if the rectangle is inside the range of the World
+    // check if the rectangle is inside the range of the World
     public boolean validRegion(Rectangle rect){
-        if(! rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024)
-        {
-            return false;
-        }
-        if( ( (rect.getX() + rect.width) > 1024) || ((rect.getY() + rect.height)<0) || (rect.getY() + rect.height) > 1024 ){ //alkdkjsklsdksla
-            return false;
-        }
-
+        if(! rect.intersects(WORLD_REC)|| rect.getWidth()==0||rect.getHeight()==0||rect.getWidth()> 1024||rect.getHeight()>1024||rect.getX()<0||rect.getX()>1024||rect.getY()<0||rect.getY()>1024) { return false; }
+        if( ( (rect.getX() + rect.width) > 1024) || ((rect.getY() + rect.height)<0) || (rect.getY() + rect.height) > 1024 ){ return false; }
         return true;
     }
 
-    //region search for rectangle
+    // region search for rectangle
     public void regionSearch(Rectangle region) {
-        ArrayList<MyRectangle> rectangles=new ArrayList<>();//Holds all the rectangles in the region
-        if(region.getHeight()==0||region.getWidth()==0)
-        {
+        ArrayList<MyRectangle> rectangles=new ArrayList<>(); //Holds all the rectangles in the region
+        if(region.getHeight()==0||region.getWidth()==0) {
             System.out.println("Rectangle rejected: (" + (int)region.getX() + ", " + (int)region.getY() + ", " + (int)region.getWidth() + ", " + (int)region.getHeight() + ")");
             return;
         }
@@ -52,14 +45,12 @@ public class World {
                 if (!(rect.getX() < region.getX() || rect.getX() > (region.getX() + region.getWidth()) || rect.getY() < region.getY() || rect.getY() > (region.getY() + region.getHeight())) || rect.intersects(region)) {
                     rectangles.add(hold.getRect());;
                 }
-
             }
         }
-
-            for (MyRectangle r : rectangles){
-                System.out.println(r);
-            }
+        for (MyRectangle r : rectangles){
+            System.out.println(r);
         }
+    }
 
     // check the intersection
     public void intersections() {
@@ -67,9 +58,7 @@ public class World {
         ArrayList<Node<MyRectangle>> rectangleL = new ArrayList<Node<MyRectangle>>();
         Iterator<Node<MyRectangle>> iterator1 = tree.iterator();
 
-        while (iterator1.hasNext()){
-            rectangleL.add(iterator1.next());
-                }
+        while (iterator1.hasNext()){ rectangleL.add(iterator1.next()); }
 
         for (int i = 0; i < rectangleL.size(); i++){
             Node<MyRectangle> hold1 = rectangleL.get(i);//current node in iteration
@@ -83,22 +72,18 @@ public class World {
                 Rectangle rect2 = hold2.getRect().getRectangle();//current rectangle
                 MyRectangle myRect2 = new MyRectangle(rect2, hold2.getName());
 
-                if (hold1.getName().equals(hold2.getName())){
-                    intersect = false;
-                }
-                else if (rect1.intersects(rect2)){
-                    intersect = true;}
+                if (hold1.getName().equals(hold2.getName())){ intersect = false; }
+                else if (rect1.intersects(rect2)){ intersect = true; }
 
-                if (intersect){
-                    System.out.println(myRect1 + " : " + myRect2); }
+                if (intersect){ System.out.println(myRect1 + " : " + myRect2); }
             }
         }
     }
-    public void Dump()
-    {
+
+    // dump method, in order traversal
+    public void Dump() {
         System.out.println("BST dump:");
-        if(tree.getHead()==null)
-        {
+        if(tree.getHead()==null) {
             System.out.println("Node has depth 0, Value (null)\nBST size is: 0");
             return;
         }
@@ -111,6 +96,8 @@ public class World {
         }
         System.out.println("BST size is: "+tree.getSize());
     }
+
+    // method used to help dump method
     public void DumpHelper(Node curr, int Depth)
     {
         System.out.println("Node has depth "+Depth+", Value "+curr.getRect());

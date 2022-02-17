@@ -8,27 +8,31 @@ import java.util.Objects;
  */
 
 public class Node<T extends Comparable<T>> {
+    // local variables
     private Node left,right;
     private MyRectangle rect;
     private String name;
     private Node previous;
-    public Node(MyRectangle curr, String name)
-    {
-        rect=curr;
-        left=null;
-        right=null;
-        this.name=name;
-        previous=null;
-    }
-    public Node(MyRectangle curr, Node L, Node R,String name)
-    {
-        rect=curr;
-        left=L;
-        right=R;
-        this.name=name;
-        previous=null;
+
+    // constructor for Node given rectangle and name
+    public Node(MyRectangle curr, String name){
+        rect = curr;
+        left = null;
+        right = null;
+        this.name = name;
+        previous = null;
     }
 
+    // constructor for node given rectangle, children, and name
+    public Node(MyRectangle curr, Node L, Node R,String name) {
+        rect = curr;
+        left = L;
+        right = R;
+        this.name = name;
+        previous = null;
+    }
+
+    // Node constructor given node
     public Node(Node n){
         rect = n.rect;
         left = n.left;
@@ -38,6 +42,7 @@ public class Node<T extends Comparable<T>> {
 
     }
 
+    // getters for node
     public Node getLeft() {
         return left;
     }
@@ -50,11 +55,21 @@ public class Node<T extends Comparable<T>> {
         return rect;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Node getPrevious() {
+        return previous;
+    }
+
+    // comparison for node with rectangle
     public int compareTo(Node node)
     {
         return rect.compareTo(node.getRect());
     }
 
+    // setters for node
     public void setLeft(Node left) {
         this.left = left;
     }
@@ -69,14 +84,6 @@ public class Node<T extends Comparable<T>> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Node getPrevious() {
-        return previous;
     }
 
     public void setPrevious(Node previous) {
