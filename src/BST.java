@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Implement a generic and iterable binary search tree,
@@ -16,13 +14,13 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
     private BSTIterator bstIterator;
 
     private class BSTIterator implements Iterator<Node<T>> {
-        private Stack<Node> previousNodes;
+        private Queue<Node> previousNodes;
         private Node current;
 
         // iterator constructor
         public BSTIterator()
         {
-            previousNodes = new Stack<>();
+            previousNodes = new LinkedList<>();
             fillStack(head);
             current = head;
         }
@@ -31,7 +29,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
         public void fillStack(Node node)
         {
             if(node == null) { return;}
-            previousNodes.push(node);
+            previousNodes.add(node);
             fillStack(node.getLeft());
             fillStack(node.getRight());
         }
@@ -40,7 +38,7 @@ public class BST <T extends Comparable <T>> implements Iterable<Node<T>> {
         public boolean hasNext(){ return !previousNodes.isEmpty(); }
 
         // gets the next node from previousNodes
-        public Node next() { return previousNodes.pop(); }
+        public Node next() { return previousNodes.remove(); }
     }
 
     // adds a rectangle to BST
